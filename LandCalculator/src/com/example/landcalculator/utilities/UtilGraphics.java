@@ -12,15 +12,15 @@ import com.example.landcalculator.model.MyLatLonPoint;
 
 public class UtilGraphics {
 
-	public static int WIDTH = 424;
-	public static int HEIGHT = 467;
+	public static int WIDTH = 800;
+	public static int HEIGHT = 1134;
 	public static int AXIS_OFFSET_X = 100;
 	public static int AXIS_OFFSET_Y = 300;
 	public static int AXIS_LENGTH = 450;
 	public static int PIXEL_PER_LATLON = -1;
 	public static int PIXEL_OFFSET = 20;
 	public static int DRAW_MODE = 0;
-	
+	 
 	static Point RefPoint = new Point(); 
 	
 	public static MyLatLonPoint getRefLatLonPoint(ArrayList<ArrayList<MyLatLonPoint>> latLonArrayTotal) 
@@ -46,7 +46,7 @@ public class UtilGraphics {
 												MyLatLonPoint refLatLonPoint)
 	{
 		Paint paint = new Paint();
-		paint.setColor(Color.GREEN);
+		paint.setColor(Color.BLUE);
 		
 		RefPoint.x = AXIS_OFFSET_X;
 		RefPoint.y = HEIGHT - AXIS_OFFSET_Y;
@@ -87,8 +87,28 @@ public class UtilGraphics {
 		}
 		
 		paint.setTextSize(40.0f);
-		canvas.drawText("shit"+WIDTH+","+HEIGHT, 300.0f, 300.0f, paint);
+	}
+	
+	public static void drawUserCurrentPosition(MyLatLonPoint userCurrentPosition, Canvas canvas, 
+												MyLatLonPoint refLatLonPoint)
+	{
+		Paint paint = new Paint();
+		paint.setColor(Color.RED);
 		
+		RefPoint.x = AXIS_OFFSET_X;
+		RefPoint.y = HEIGHT - AXIS_OFFSET_Y;
+		
+		double dLat = userCurrentPosition.Lat - refLatLonPoint.Lat;
+		double dLon = userCurrentPosition.Lon - refLatLonPoint.Lon;
+		int dPixelX = (int)(dLon * PIXEL_PER_LATLON);
+		int dPixelY = (int)(dLat * PIXEL_PER_LATLON);
+		
+		int pixelX = RefPoint.x + PIXEL_OFFSET + dPixelX;
+		int pixelY = RefPoint.y - PIXEL_OFFSET - dPixelY;
+			
+		int circleRad = 20;
+			
+		canvas.drawCircle((float)pixelX, (float)pixelY, (float)circleRad, paint);		
 	}
 	
 	public static int getPixelPerLatLon(ArrayList<ArrayList<MyLatLonPoint>> latLonArrayTotal)
@@ -126,9 +146,12 @@ public class UtilGraphics {
 		
 		double dLat = maxLat - minLat;
 		double dLon = maxLon - minLon;
-		int pixelCount = AXIS_LENGTH - 2 * PIXEL_OFFSET;
+		int pixelCountX = WIDTH - 2 * AXIS_OFFSET_X;
+		int pixelCountY = HEIGHT - 2 * AXIS_OFFSET_Y;
+		double ratioX = dLon / pixelCountX;
+		double ratioY = dLat / pixelCountY;
 		
-		result = (dLat > dLon) ? pixelCount / dLat : pixelCount / dLon;
+		result = (ratioY > ratioX) ? pixelCountY / dLat : pixelCountX / dLon;
 		return (int)result;
 	}
 }

@@ -21,6 +21,7 @@ public class ShowMapActivity extends Activity {
 
 	ArrayList<MyLatLonPoint> LatLonArray;
 	MyLatLonPoint userCurrentPosition;
+	ArrayList<ArrayList<MyLatLonPoint>> latLonArrayTotal;
 	int mode;
 	
 	@Override
@@ -34,6 +35,8 @@ public class ShowMapActivity extends Activity {
 		double userCurrentLon = intent.getDoubleExtra("UserCurrentLon", 0.0);
 		userCurrentPosition = new MyLatLonPoint(userCurrentLat, userCurrentLon);
 		
+		latLonArrayTotal = new ArrayList<ArrayList<MyLatLonPoint>>();
+		
 		setContentView(new MyView(this));
 	}
 	
@@ -41,35 +44,25 @@ public class ShowMapActivity extends Activity {
          public MyView(Context context) {
               super(context);
               // TODO Auto-generated constructor stub
+
          }
 
          @Override
          protected void onDraw(Canvas canvas) {
             // TODO Auto-generated method stub
             super.onDraw(canvas);
-            int x = getWidth();
-            int y = getHeight();
-            int radius;
-            radius = 100;
-            Paint paint = new Paint();
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.WHITE);
-            canvas.drawPaint(paint);
-            // Use Color.parseColor to define HTML colors
-            //paint.setColor(Color.parseColor("#CD5C5C"));
-            //canvas.drawCircle(x / 2, y / 2, radius, paint);
-            
-    		ArrayList<ArrayList<MyLatLonPoint>> latLonArrayTotal = new ArrayList<ArrayList<MyLatLonPoint>>();
-    		latLonArrayTotal.add(LatLonArray);
-            MyLatLonPoint refLatLonPoint = UtilGraphics.getRefLatLonPoint(latLonArrayTotal);
+      		
+            latLonArrayTotal.add(LatLonArray);
             
             UtilGraphics.PIXEL_PER_LATLON = UtilGraphics.getPixelPerLatLon(latLonArrayTotal);
             UtilGraphics.WIDTH = getWidth();
             UtilGraphics.HEIGHT = getHeight();
             UtilGraphics.AXIS_LENGTH = UtilGraphics.WIDTH - 10;
             UtilGraphics.DRAW_MODE = mode;
-            
+
+            MyLatLonPoint refLatLonPoint = UtilGraphics.getRefLatLonPoint(latLonArrayTotal);
             UtilGraphics.drawMapFromLatLonArray(LatLonArray, canvas, refLatLonPoint);
+            UtilGraphics.drawUserCurrentPosition(userCurrentPosition, canvas, refLatLonPoint);
         }
      }
 }
