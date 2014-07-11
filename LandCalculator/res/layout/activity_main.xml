@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+    
+    <TextView
+        android:id="@+id/recordCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:textSize="40sp"
+        android:text="0" />
+	
+    <TextView
+        android:id="@+id/showAreaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="190dp"
+        android:textSize="30sp"
+        android:text="" />
+    
+    <TextView
+        android:id="@+id/showDistanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:textSize="30sp"
+        android:text="" />       
+    
+    <Button
+        android:id="@+id/recordBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"  
+        android:layout_alignParentLeft="true"              
+        android:layout_marginBottom="90dp"
+        android:layout_marginLeft="30dp"
+        android:text="Record" />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="90dp"
+        android:layout_marginRight="30dp"
+        android:text="Clear" />
+
+	<Button
+        android:id="@+id/showAreaMapBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="แสดงพื้นที่" />
+
+	<Button
+        android:id="@+id/showDistanceMapBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:text="แสดงระยะทาง" />	    
+    
+    <Button
+        android:id="@+id/calculateAreaBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"  
+        android:layout_alignParentLeft="true"              
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="คำนวณพื้นที่" />    
+
+    <Button
+        android:id="@+id/calculateDistanceBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        android:text="คำนวณระยะทาง" />        
+    
+</RelativeLayout>
