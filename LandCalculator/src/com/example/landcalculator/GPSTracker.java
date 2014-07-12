@@ -116,6 +116,17 @@ public class GPSTracker extends Service implements LocationListener {
     }
     
     public boolean canGetLocation() {
+    	locationManager = (LocationManager) mContext
+                .getSystemService(LOCATION_SERVICE);
+
+        // getting GPS status
+        isGPSEnabled = locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (isGPSEnabled)
+        	this.canGetLocation = true;
+        else
+        	this.canGetLocation = false;
+    	
         return this.canGetLocation;
     }
      

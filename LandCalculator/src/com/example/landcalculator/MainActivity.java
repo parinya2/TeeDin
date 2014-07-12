@@ -111,6 +111,7 @@ public class MainActivity extends Activity {
 		});        
 
         Button saveBtn = (Button)findViewById(R.id.saveBtn);
+        saveBtn.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				saveBtnOnClick();
@@ -118,6 +119,7 @@ public class MainActivity extends Activity {
 		});           
 
         Button loadBtn = (Button)findViewById(R.id.loadBtn);
+        loadBtn.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
         loadBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				loadBtnOnClick();
@@ -155,13 +157,13 @@ public class MainActivity extends Activity {
     }
 
     public void setCalculateAreaText(String text) {
-    	TextView recordCountTextView = (TextView)findViewById(R.id.showAreaTextView);
-    	recordCountTextView.setText(text);	
+    	TextView showAreaTextView = (TextView)findViewById(R.id.showAreaTextView);
+    	showAreaTextView.setText(text);	
     }
 
     public void setCalculateDistanceText(String text) {
-    	TextView recordCountTextView = (TextView)findViewById(R.id.showDistanceTextView);
-    	recordCountTextView.setText(text);	
+    	TextView showDistanceTextView = (TextView)findViewById(R.id.showDistanceTextView);
+    	showDistanceTextView.setText(text);	
     }
     
     public MyLatLonPoint getLatLonPointFromGPS() {
@@ -189,8 +191,8 @@ public class MainActivity extends Activity {
     	
     	if (newLatLonPoint != null) {
     		LatLonArray.add(newLatLonPoint);
-    		setCalculateAreaText(newLatLonPoint.Lat+"");
-    		setCalculateDistanceText(newLatLonPoint.Lon+"");
+    		setCalculateAreaText("ละติจูด: "+newLatLonPoint.Lat);
+    		setCalculateDistanceText("ลองติจูด: "+newLatLonPoint.Lon);
     	}
     	 	
     	setRecordCountText(LatLonArray.size());

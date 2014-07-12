@@ -10,10 +10,20 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:textSize="40sp"
+        android:layout_marginTop="170dp"
+        android:textSize="50sp"
         android:text="0" />
-	
+
+    <TextView
+        android:id="@+id/recordCountLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="140dp"
+        android:textSize="30sp"
+        android:text="จำนวนพิกัด" />    
+    	
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="150dp"
@@ -91,7 +101,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:text="วาดพื้นที่" />
 
 	<Button
@@ -101,7 +111,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="30dp"
         android:text="วาดระยะทาง" />	    
     
     <Button
