@@ -24,11 +24,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -55,6 +57,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         
         initNecessaryData();
         
@@ -168,12 +171,12 @@ public class MainActivity extends Activity {
     
     public MyLatLonPoint getLatLonPointFromGPS() {
     	try {
-    		double latitude = GPS.getLatitude();
-    		double longtitude = GPS.getLongitude();
-    		MyLatLonPoint latLonPoint = new MyLatLonPoint(latitude, longtitude);
+    		GPS = new GPSTracker(this);
+    		Location location = GPS.getLocation();
+    		MyLatLonPoint latLonPoint = new MyLatLonPoint(location.getLatitude(), location.getLongitude());
     		
-    		//return latLonPoint;
-    		return MockLatLonArray.get(LatLonArray.size());	
+    		return latLonPoint;
+    		//return MockLatLonArray.get(LatLonArray.size());	
     	}
     	catch(Exception e) {
     		return null;
@@ -191,8 +194,8 @@ public class MainActivity extends Activity {
     	
     	if (newLatLonPoint != null) {
     		LatLonArray.add(newLatLonPoint);
-    		setCalculateAreaText("ละติจูด: "+newLatLonPoint.Lat);
-    		setCalculateDistanceText("ลองติจูด: "+newLatLonPoint.Lon);
+    		setCalculateAreaText("ละติจูด: " + String.format("%.8f", newLatLonPoint.Lat));
+    		setCalculateDistanceText("ลองติจูด: " + String.format("%.8f", newLatLonPoint.Lon));
     	}
     	 	
     	setRecordCountText(LatLonArray.size());
@@ -265,10 +268,20 @@ public class MainActivity extends Activity {
     
     public void showAreaMapBtnOnClick(int mode) {
     	Intent intent = new Intent(this, ShowMapActivity.class);
-    	MyLatLonPoint userCurrentPosition = new MyLatLonPoint(52.502958, 13.408728);
-    	intent.putParcelableArrayListExtra("LatLonArray", LatLonArray);
-    	intent.putExtra("UserCurrentLat", userCurrentPosition.Lat);
-    	intent.putExtra("UserCurrentLon", userCurrentPosition.Lon);
+    	//MyLatLonPoint userCurrentPosition = new MyLatLonPoint(52.502958, 13.408728);
+    	userCurrentPosition = getLatLonPointFromGPS();
+    	
+    	if (LatLonArray != null)
+    	{
+    		intent.putParcelableArrayListExtra("LatLonArray", LatLonArray);	
+    	}
+    	
+    	if (userCurrentPosition != null)
+    	{
+    		intent.putExtra("UserCurrentLat", userCurrentPosition.Lat);
+        	intent.putExtra("UserCurrentLon", userCurrentPosition.Lon);	
+    	}
+    	
     	intent.putExtra("Mode", mode);
     	startActivity(intent);
     }

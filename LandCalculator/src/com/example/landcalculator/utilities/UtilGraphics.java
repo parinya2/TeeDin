@@ -46,13 +46,14 @@ public class UtilGraphics {
 												MyLatLonPoint refLatLonPoint)
 	{
 		Paint paint = new Paint();
-		paint.setColor(Color.BLUE);
+		
 		
 		RefPoint.x = AXIS_OFFSET_X;
 		RefPoint.y = HEIGHT - AXIS_OFFSET_Y;
 		
 		for (int i = 0; i < latLonArray.size(); i++)
 		{
+			paint.setColor(Color.BLUE);
 			MyLatLonPoint latLonPoint = latLonArray.get(i);
 			double dLat = latLonPoint.Lat - refLatLonPoint.Lat;
 			double dLon = latLonPoint.Lon - refLatLonPoint.Lon;
@@ -83,7 +84,33 @@ public class UtilGraphics {
 			paint.setStrokeWidth(10.0f);
 			
 			if (!((DRAW_MODE == 2) && (i == latLonArray.size() - 1)))
+			{
 				canvas.drawLine(pixelX, pixelY, pixelXNext, pixelYNext, paint);
+				
+				float middleX = (pixelX + pixelXNext) / 2.0f;
+				float middleY = (pixelY + pixelYNext) / 2.0f;
+				int distance = (int) UtilMath.getLatLonDistance(latLonPoint.Lat, latLonPoint.Lon, 
+															latLonPointNext.Lat, latLonPointNext.Lon);
+				
+				paint.setTextSize(35.0f);
+				paint.setColor(Color.RED);
+				
+				double slope = (pixelYNext - pixelY) * -1.0 / (pixelXNext - pixelX);
+				int offsetX = 0, offsetY = 0;
+				
+				if (slope >= 1 || slope <= -1 || Double.isNaN(slope))
+				{
+					offsetX = 20;
+				} else if (slope >= 0 && slope <= 1)
+				{
+					offsetY = 30;
+				} else
+				{
+					offsetY = -30;
+				}
+				canvas.drawText(distance+" m", middleX + offsetX, middleY + offsetY, paint);
+			}
+				
 		}
 		
 		paint.setTextSize(40.0f);
@@ -93,7 +120,7 @@ public class UtilGraphics {
 												MyLatLonPoint refLatLonPoint)
 	{
 		Paint paint = new Paint();
-		paint.setColor(Color.RED);
+		paint.setColor(Color.GREEN);
 		
 		RefPoint.x = AXIS_OFFSET_X;
 		RefPoint.y = HEIGHT - AXIS_OFFSET_Y;

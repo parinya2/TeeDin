@@ -8,6 +8,7 @@ import com.example.landcalculator.utilities.UtilGraphics;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -27,6 +28,7 @@ public class ShowMapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		Intent intent = getIntent();
 		LatLonArray = intent.getParcelableArrayListExtra("LatLonArray");
@@ -52,17 +54,27 @@ public class ShowMapActivity extends Activity {
             // TODO Auto-generated method stub
             super.onDraw(canvas);
       		
-            latLonArrayTotal.add(LatLonArray);
-            
-            UtilGraphics.PIXEL_PER_LATLON = UtilGraphics.getPixelPerLatLon(latLonArrayTotal);
-            UtilGraphics.WIDTH = getWidth();
-            UtilGraphics.HEIGHT = getHeight();
-            UtilGraphics.AXIS_LENGTH = UtilGraphics.WIDTH - 10;
-            UtilGraphics.DRAW_MODE = mode;
+            if (LatLonArray != null)
+            {
+                latLonArrayTotal.add(LatLonArray);
+                
+                UtilGraphics.PIXEL_PER_LATLON = UtilGraphics.getPixelPerLatLon(latLonArrayTotal);
+                UtilGraphics.WIDTH = getWidth();
+                UtilGraphics.HEIGHT = getHeight();
+                UtilGraphics.AXIS_LENGTH = UtilGraphics.WIDTH - 10;
+                UtilGraphics.DRAW_MODE = mode;
 
-            MyLatLonPoint refLatLonPoint = UtilGraphics.getRefLatLonPoint(latLonArrayTotal);
-            UtilGraphics.drawMapFromLatLonArray(LatLonArray, canvas, refLatLonPoint);
-            UtilGraphics.drawUserCurrentPosition(userCurrentPosition, canvas, refLatLonPoint);
+                MyLatLonPoint refLatLonPoint = UtilGraphics.getRefLatLonPoint(latLonArrayTotal);
+                UtilGraphics.drawMapFromLatLonArray(LatLonArray, canvas, refLatLonPoint);     
+                
+                if (userCurrentPosition != null)
+                {
+                	UtilGraphics.drawUserCurrentPosition(userCurrentPosition, canvas, refLatLonPoint);	
+                }
+            }
+
+            
+           
         }
      }
 }
